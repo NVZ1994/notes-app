@@ -101,7 +101,7 @@ function renderNotesList() {
   const notesList = document.getElementById("notes-list");
   notesList.innerHTML = "";
 
-  notesData.forEach((note, index) => {
+  notesData.forEach((note) => {
     const noteItem = document.createElement("li");
     noteItem.innerHTML = `
       <ul>
