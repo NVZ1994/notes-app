@@ -8,10 +8,54 @@
 </head>
 
 <body>
-    <header></header>
-    <main></main>
+    <header>
+        <h1>My notes</h1>
+    </header>
+    <main>
+        <div id="create-note-popup" style="display: none;">
+            <h2>Create a Note</h2>
+            <form>
+                <label for="note-name">Name:</label>
+                <input type="text" id="note-name" required><br>
+                <label for="note-category">Category:</label>
+                <select id="note-category" required>
+                    <option value="Task">Task</option>
+                    <option value="Random Thought">Random Thought</option>
+                    <option value="Idea">Idea</option>
+                </select><br>
+                <label for="note-content">Content:</label>
+                <textarea id="note-content" required></textarea><br>
+                <label for="note-dates">Dates:</label>
+                <input type="text" id="note-dates" required><br>
+                <button id="create-note-confirm" type="button">Confirm</button>
+                <button id="create-note-cancel" type="button">Cancel</button>
+            </form>
+        </div>
+        <div id="edit-note-popup" style="display: none;">
+            <h2>Edit Note</h2>
+            <form>
+                <label for="edit-note-name">Name:</label>
+                <input type="text" id="edit-note-name" required><br>
+                <label for="edit-note-category">Category:</label>
+                <select id="edit-note-category" required>
+                    <option value="Task">Task</option>
+                    <option value="Random Thought">Random Thought</option>
+                    <option value="Idea">Idea</option>
+                </select><br>
+                <label for="edit-note-content">Content:</label>
+                <textarea id="edit-note-content" required></textarea><br>
+                <label for="edit-note-dates">Dates:</label>
+                <input type="text" id="edit-note-dates" required><br>
+                <button id="edit-note-confirm" type="button">Confirm</button>
+                <button id="edit-note-cancel" type="button">Cancel</button>
+            </form>
+        </div>
+        <ul id="notes-list"></ul>
+        <div id="summary-table"></div>
+        <button id="create-note-button" type="button">Create a Note</button>
+    </main>
     <footer></footer>
-    <script type="module" src="./index.js"></script>
+    <script src="./index.js"></script>
 </body>
 
 </html>
