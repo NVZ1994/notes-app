@@ -14,56 +14,90 @@ class NotesStorage {
     { categorieTitle: this.categoriesId.idea, notes: [] },
   ];
 
-  constructor(renderNotesFromStorage) {
-    this.updateHTML = renderNotesFromStorage.bind(this);
+  constructor(renderHTML) {
+    this.updateHTML = renderHTML.bind(this);
     this.readStorage(this.storageKeys.notesStorage);
     this.readStorage(this.storageKeys.archiveStorage);
   }
 
-  readStorage(key) {
-    const data = localStorage.getItem(key);
+  // readStorage(key) {
+  //   const data = localStorage.getItem(key);
 
-    if (key === this.storageKeys.notesStorage) {
-      if (data !== null) {
-        this.notesData = JSON.parse(data);
+  //   if (key === this.storageKeys.notesStorage) {
+  //     if (data !== null) {
+  //       this.notesData = JSON.parse(data);
+  //     }
+  //     return this.notesData;
+  //   } else if (key === this.storageKeys.archiveStorage) {
+  //     if (data !== null) {
+  //       this.archive = JSON.parse(data);
+  //     }
+  //     return this.archive;
+  //   }
+  // }
+
+  readStorage(key) {
+    try {
+      const data = localStorage.getItem(key);
+
+      if (key === this.storageKeys.notesStorage) {
+        if (data !== null) {
+          this.notesData = JSON.parse(data);
+        }
+        return this.notesData;
+      } else if (key === this.storageKeys.archiveStorage) {
+        if (data !== null) {
+          this.archive = JSON.parse(data);
+        }
+        return this.archive;
       }
-      return this.notesData;
-    } else if (key === this.storageKeys.archiveStorage) {
-      if (data !== null) {
-        this.archive = JSON.parse(data);
-      }
-      return this.archive;
+    } catch (error) {
+      console.error("Error while reading data from localStorage:", error);
     }
   }
 
   setStorage(key) {
-    if (key === this.storageKeys.notesStorage) {
-      localStorage.setItem(
-        this.storageKeys.notesStorage,
-        JSON.stringify(this.notesData)
-      );
-      console.log("this.notesData", this.notesData);
-    } else if (key === this.storageKeys.archiveStorage) {
-      localStorage.setItem(
-        this.storageKeys.archiveStorage,
-        JSON.stringify(this.archive)
-      );
-    }
+    try {
+      if (key === this.storageKeys.notesStorage) {
+        localStorage.setItem(
+          this.storageKeys.notesStorage,
+          JSON.stringify(this.notesData)
+        );
+      } else if (key === this.storageKeys.archiveStorage) {
+        localStorage.setItem(
+          this.storageKeys.archiveStorage,
+          JSON.stringify(this.archive)
+        );
+      }
 
-    this.updateHTML();
+      this.updateHTML();
+    } catch (error) {
+      console.error("Error while writing data to localStorage:", error);
+    }
   }
 
   getArchiveStorage() {
-    const allNotes = localStorage.getItem(this.storageKeys.notesStorage);
-    this.notesData = JSON.parse(allNotes);
-    return notesData;
+    try {
+      const allNotes = localStorage.getItem(this.storageKeys.notesStorage);
+      this.notesData = JSON.parse(allNotes);
+      return this.notesData;
+    } catch (error) {
+      console.error(
+        "Error while getting archive data from localStorage:",
+        error
+      );
+    }
   }
 
   setArchiveStorage() {
-    localStorage.setItem(
-      this.storageKeys.notesStorage,
-      JSON.stringify(notesData)
-    );
+    try {
+      localStorage.setItem(
+        this.storageKeys.notesStorage,
+        JSON.stringify(notesData)
+      );
+    } catch (error) {
+      console.error("Error while setting archive data to localStorage:", error);
+    }
   }
 
   addNote(data) {

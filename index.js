@@ -5,13 +5,13 @@ import {
   createSummaryTemplate,
 } from "./src/modules/templates";
 
-const notesStorage = new NotesStorage(renderNotesFromStorage);
+const notesStorage = new NotesStorage(renderHTML);
 const modal = new Modal(notesStorage);
 
 const notesList = document.getElementById("notes-list");
 const summaryList = document.getElementById("summary-table");
 
-function renderNotesFromStorage() {
+function updateNotesList() {
   if (notesStorage.notesData.length !== 0) {
     const notesTemplate = notesStorage.notesData
       .map((el) => createNotesTemplate(el))
@@ -21,9 +21,13 @@ function renderNotesFromStorage() {
   notesList.innerHTML = "";
 }
 
+function renderHTML() {
+  updateNotesList();
+  renderSummaryInfo();
+}
+
 function getActiveNotesByCategory(category) {
   const activeNotesByCategory = notesStorage.notesData;
-  console.log(activeNotesByCategory);
   return activeNotesByCategory.filter((el) => el.category === category).length;
 }
 
@@ -72,6 +76,6 @@ function listenerToNotesEvents() {
   }
 }
 
-renderNotesFromStorage();
+renderHTML();
 listenerToNotesEvents();
 renderSummaryInfo();
