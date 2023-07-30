@@ -20,22 +20,6 @@ class NotesStorage {
     this.readStorage(this.storageKeys.archiveStorage);
   }
 
-  // readStorage(key) {
-  //   const data = localStorage.getItem(key);
-
-  //   if (key === this.storageKeys.notesStorage) {
-  //     if (data !== null) {
-  //       this.notesData = JSON.parse(data);
-  //     }
-  //     return this.notesData;
-  //   } else if (key === this.storageKeys.archiveStorage) {
-  //     if (data !== null) {
-  //       this.archive = JSON.parse(data);
-  //     }
-  //     return this.archive;
-  //   }
-  // }
-
   readStorage(key) {
     try {
       const data = localStorage.getItem(key);

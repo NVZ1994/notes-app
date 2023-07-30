@@ -3,6 +3,7 @@ import NotesStorage from "./src/modules/notesStorage";
 import {
   createNotesTemplate,
   createSummaryTemplate,
+  archivedNoteTemplate,
 } from "./src/modules/templates";
 
 const notesStorage = new NotesStorage(renderHTML);
@@ -79,3 +80,52 @@ function listenerToNotesEvents() {
 renderHTML();
 listenerToNotesEvents();
 renderSummaryInfo();
+
+function onSummaryItemClick(event) {
+  const summaryItem = event.target.closest(".categoryItem");
+  if (!summaryItem) return;
+
+  const newArchivedNote = summaryItem.nextElementSibling;
+
+  if (newArchivedNote && newArchivedNote.id === "archivedNotesContainer") {
+    newArchivedNote.remove();
+    return;
+  }
+
+  const titleElement = summaryItem.querySelector(".title");
+  if (!titleElement) return;
+  const title = titleElement.textContent;
+
+  const archivedNotesByCategory = notesStorage.archive.filter(
+    (el) => el.categorieTitle === title
+  );
+  const notesHTML = archivedNotesByCategory
+    .map((category) => {
+      return category.notes.map((note) => archivedNoteTemplate(note)).join("");
+    })
+    .join("");
+
+  const newArchivedNoteElement = document.createElement("div");
+  newArchivedNoteElement.setAttribute("id", "archivedNotesContainer");
+  newArchivedNoteElement.innerHTML = notesHTML;
+
+  summaryItem.insertAdjacentElement("afterend", newArchivedNoteElement);
+}
+
+summaryList.addEventListener("click", onSummaryItemClick);
+
+// function listenerToArchivedNotesEvents() {
+//   const summaryItems = document.querySelectorAll("#categoryItem");
+//   summaryItems.forEach((summaryItem) => {
+//     console.log(summaryItem);
+//     summaryItem.addEventListener("click", handleClick);
+//   });
+
+//   function handleClick(e) {
+//     if (e.target.tagName !== "BUTTON") {
+//       return;
+//     }
+//   }
+// }
+
+// listenerToArchivedNotesEvents();

@@ -50,8 +50,6 @@
                 </select><br>
                 <label for="note-content">Content:</label>
                 <textarea id="note-content" required></textarea><br>
-                <label for="note-dates">Dates:</label>
-                <input type="text" id="note-dates" required><br>
                 <button id="create-note-confirm" type="button">Confirm</button>
                 <button id="create-note-cancel" type="button">Cancel</button>
             </form>
@@ -62,7 +60,7 @@
         </div>
         <button id="create-note-button" type="button">Create a Note</button>
         <div>
-            <ul>
+            <ul style="display: flex; gap: 20px;">
                 <li>
                     <p>Note category</p>
                 </li>
@@ -73,7 +71,7 @@
                     <p>Archived</p>
                 </li>
             </ul>
-            <ul id="summary-table" style="display: flex; gap: 20px;"></ul>
+            <ul id="summary-table"></ul>
         </div>
 
     </main>

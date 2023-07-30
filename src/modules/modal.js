@@ -3,7 +3,7 @@ const modalWindow = document.getElementById("create-note-popup");
 const noteNameInput = document.getElementById("note-name");
 const noteCategorySelect = document.getElementById("note-category");
 const noteContentTextarea = document.getElementById("note-content");
-const noteDatesInput = document.getElementById("note-dates");
+
 const openModalButton = document.getElementById("create-note-button");
 const confirmNoteBtn = document.getElementById("create-note-confirm");
 const cancelNoteBtn = document.getElementById("create-note-cancel");
@@ -27,13 +27,17 @@ class Modal {
     modalWindow.style.display = "block";
   }
 
+  getTimeStamps(content) {
+    const datePattern = /\b\d{1,2}\/\d{1,2}\/\d{4}\b/g;
+    const dates = content.match(datePattern);
+    return dates ? dates.join(", ") : "";
+  }
+
   getNoteValues() {
     const title = noteNameInput.value;
     const category = noteCategorySelect.value;
     const content = noteContentTextarea.value;
-    const timeStamps = noteDatesInput.value
-      .split(",")
-      .map((date) => date.trim());
+    const timeStamps = this.getTimeStamps(content);
 
     if (!title || !category || !content) {
       alert("Please fill in all the fields.");
@@ -57,7 +61,6 @@ class Modal {
     noteNameInput.value = "";
     noteCategorySelect.value = "Task";
     noteContentTextarea.value = "";
-    noteDatesInput.value = "";
   }
 
   fillNote(id) {
