@@ -1,67 +1,15 @@
-// import { createNote } from "./src/modules/createNote";
-// import { listenerToEditNote } from "./src/modules/editNote";
-// import { hideCreateNotePopup } from "./src/modules/helpers/hidePopup";
-// import { renderNotesList } from "./src/modules/helpers/renderNotesList";
-
-// const confirmNote = document.getElementById("create-note-confirm");
-// const cancelNote = document.getElementById("create-note-cancel");
-// const createNotePopup = document.getElementById("create-note-popup");
-
-// window.addEventListener("load", () => {
-//   const notesFromStorage = localStorage.getItem("notesData");
-//   if (notesFromStorage) {
-//     renderNotesList();
-//   }
-//   createButton.addEventListener("click", showCreateNote);
-// });
-
-// export function showCreateNote() {
-//   createNotePopup.style.display = "block";
-// }
-
-// confirmNote.addEventListener("click", createNote);
-// cancelNote.addEventListener("click", hideCreateNotePopup);
-
-// listenerToEditNote();
-
-// ----------------------------------------------------------------
-
-import Modal from "./alex/modal";
-import NotesStorage from "./alex/notesStorage";
+import Modal from "./src/modules/modal";
+import NotesStorage from "./src/modules/notesStorage";
+import {
+  createNotesTemplate,
+  createSummaryTemplate,
+} from "./src/modules/templates";
 
 const notesStorage = new NotesStorage(renderNotesFromStorage);
 const modal = new Modal(notesStorage);
 
 const notesList = document.getElementById("notes-list");
-
-function createNotesTemplate(note) {
-  return `
-    <div style="display: flex; gap: 20px;">
-        <ul style="display: flex; gap: 20px;">
-            <li>
-                <p>${note.title}</p>
-            </li>
-            <li>
-                <p>${note.creationTime}</p>
-            </li>
-            <li>
-                <p>${note.category}</p>
-            </li>
-            <li>
-                <p>${note.content}</p>
-            </li>
-            <li>
-                <p>${note.timeStamps}</p>
-            </li>
-        </ul>
-        <div>
-            <button class="edit-button id-${note.id}">Edit</button>
-            <button class="archive-button id-${note.id}">Archive</button>
-            <button class="delete-button id-${note.id}">Delete</button>
-        </div>
-    </div>
-  `;
-}
+const summaryList = document.getElementById("summary-table");
 
 function renderNotesFromStorage() {
   if (notesStorage.notesData.length !== 0) {
@@ -71,6 +19,30 @@ function renderNotesFromStorage() {
     return (notesList.innerHTML = notesTemplate);
   }
   notesList.innerHTML = "";
+}
+
+function getActiveNotesByCategory(category) {
+  const activeNotesByCategory = notesStorage.notesData;
+  console.log(activeNotesByCategory);
+  return activeNotesByCategory.filter((el) => el.category === category).length;
+}
+
+function renderSummaryInfo() {
+  const categories = notesStorage.archive;
+
+  const markup = categories
+    .map((category) => {
+      const activeNotes = getActiveNotesByCategory(category.categorieTitle);
+      const archivedNoted = category.notes.length;
+      const renderedList = createSummaryTemplate(
+        category.categorieTitle,
+        activeNotes,
+        archivedNoted
+      );
+      return renderedList;
+    })
+    .join("");
+  summaryList.innerHTML = markup;
 }
 
 function listenerToNotesEvents() {
@@ -102,3 +74,4 @@ function listenerToNotesEvents() {
 
 renderNotesFromStorage();
 listenerToNotesEvents();
+renderSummaryInfo();

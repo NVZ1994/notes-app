@@ -1,4 +1,4 @@
-import { formatDate } from "../src/modules/helpers/formatDate";
+import { formatDate } from "./helpers/formatDate";
 
 class NotesStorage {
   storageKeys = {
@@ -107,12 +107,11 @@ class NotesStorage {
     this.archive
       .find((category) => noteToArchivate.category === category.categorieTitle)
       .notes.push(noteToArchivate);
-    // this.setStorage(this.storageKeys.notesStorage);
     this.deleteNoteById(id);
     this.setStorage(this.storageKeys.archiveStorage);
   }
 
-  dearchivateNoteById(id) {}
+  deArchivateNoteById(id) {}
 }
 
 export default NotesStorage;
