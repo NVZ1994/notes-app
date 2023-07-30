@@ -20,14 +20,12 @@ export function listenerToEditNote() {
       case "delete-button":
         break;
     }
-    console.log(id);
   }
 }
 
 function editNote(id) {
   const notes = JSON.parse(localStorage.getItem("notesData"));
   const actualNote = notes.find((note) => note.id === Number(id));
-  console.log(actualNote);
 
   showCreateNote();
 }
