@@ -13,6 +13,7 @@ module.exports = {
       util: false,
     },
   },
+  devtool: "source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "index.html"),
