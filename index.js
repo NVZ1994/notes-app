@@ -1,3 +1,4 @@
+import "./styles.css";
 import Modal from "./src/modules/modal";
 import NotesStorage from "./src/modules/notesStorage";
 import {
@@ -119,3 +120,13 @@ function listenerToArchivedNotesEvents() {
 }
 
 listenerToArchivedNotesEvents();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const paragraphs = document.querySelectorAll(".text, .title");
+
+  paragraphs.forEach(function (paragraph) {
+    const text = paragraph.textContent;
+    const truncatedText = text.length > 20 ? text.slice(0, 20) + "..." : text;
+    paragraph.textContent = truncatedText;
+  });
+});

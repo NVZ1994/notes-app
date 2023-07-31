@@ -1,9 +1,9 @@
 export function createNotesTemplate(note) {
   return `
-    <div style="display: flex; gap: 20px;">
-        <ul style="display: flex; gap: 20px;">
+    <div >
+        <ul class="note">
             <li>
-                <p>${note.title}</p>
+                <p class="title">${note.title}</p>
             </li>
             <li>
                 <p>${note.creationTime}</p>
@@ -12,17 +12,18 @@ export function createNotesTemplate(note) {
                 <p>${note.category}</p>
             </li>
             <li>
-                <p>${note.content}</p>
+                <p class="text">${note.content}</p>
             </li>
             <li>
                 <p>${note.timeStamps}</p>
             </li>
-        </ul>
+        
         <div>
             <button class="edit-button id-${note.id}">Edit</button>
             <button class="archive-button id-${note.id}">Archive</button>
             <button class="delete-button id-${note.id}">Delete</button>
         </div>
+        </ul>
     </div>
   `;
 }
@@ -30,7 +31,7 @@ export function createNotesTemplate(note) {
 export function createSummaryTemplate(category, active, archieved) {
   return `
     <li class="categoryItem">
-        <ul style="display: flex; gap: 20px;" >
+        <ul  >
             <li>
                 <p class="title">${category}</p>
             </li>
@@ -47,8 +48,8 @@ export function createSummaryTemplate(category, active, archieved) {
 
 export function archivedNoteTemplate(note) {
   return `
-    <div style="display: flex; gap: 20px;" id="archivedNote">
-        <ul style="display: flex; gap: 20px;">
+    <div  id="archivedNote">
+        <ul >
             <li>
                 <p>${note.title}</p>
             </li>

@@ -5,77 +5,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My notes App</title>
+
 </head>
 
 <body>
     <header>
-        <h1>My notes</h1>
+        <div class="container">
+            <h1>My notes</h1>
+        </div>
     </header>
     <main>
-        <div>
-            <ul style="display: flex; gap: 20px;">
-                <li>
-                    <p>Name</p>
-                </li>
-                <li>
-                    <p>Created</p>
-                </li>
-                <li>
-                    <p>Category</p>
-                </li>
-                <li>
-                    <p>Content</p>
-                </li>
-                <li>
-                    <p>Dates</p>
-                </li>
-                <li>
-                    <p>archive</p>
-                </li>
-                <li>
-                    <p>delete</p>
-                </li>
-            </ul>
+        <div class="container">
+            <div>
+                <ul class="titles-list">
+                    <li>
+                        <p>Name</p>
+                    </li>
+                    <li>
+                        <p>Created</p>
+                    </li>
+                    <li>
+                        <p>Category</p>
+                    </li>
+                    <li>
+                        <p>Content</p>
+                    </li>
+                    <li>
+                        <p>Dates</p>
+                    </li>
+                    <li>
+                        <p>archive</p>
+                    </li>
+                    <li>
+                        <p>delete</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="active-notes">
+                <ul id="notes-list">
+                </ul>
+            </div>
+            <div class="create-button-wrap">
+                <button id="create-note-button" type="button">Create a Note</button>
+            </div>
+            <div class="summary-wrap">
+                <ul>
+                    <li>
+                        <p>Note category</p>
+                    </li>
+                    <li>
+                        <p>Active</p>
+                    </li>
+                    <li>
+                        <p>Archived</p>
+                    </li>
+                </ul>
+                <ul id="summary-table"></ul>
+            </div>
         </div>
-        <div id="create-note-popup" style="display: none;">
-            <h2>Create a Note</h2>
+    </main>
+    <footer></footer>
+    <div id="create-note-popup" class="backdrop" style="display: none;">
+        <div class="modal">
+            <h2>Your note</h2>
             <form>
                 <label for="note-name">Name:</label>
-                <input type="text" id="note-name" required><br>
+                <input type="text" id="note-name" required>
                 <label for="note-category">Category:</label>
                 <select id="note-category" required>
                     <option value="Task">Task</option>
                     <option value="Random Thoughts">Random Thought</option>
                     <option value="Idea">Idea</option>
-                </select><br>
+                </select>
                 <label for="note-content">Content:</label>
-                <textarea id="note-content" required></textarea><br>
-                <button id="create-note-confirm" type="button">Confirm</button>
-                <button id="create-note-cancel" type="button">Cancel</button>
+                <textarea id="note-content" required></textarea>
+                <div class="modal-buttons-wrap">
+                    <button id="create-note-confirm" type="button">Confirm</button>
+                    <button id="create-note-cancel" type="button">Cancel</button>
+                </div>
             </form>
         </div>
-        <div>
-            <ul id="notes-list">
-            </ul>
-        </div>
-        <button id="create-note-button" type="button">Create a Note</button>
-        <div>
-            <ul style="display: flex; gap: 20px;">
-                <li>
-                    <p>Note category</p>
-                </li>
-                <li>
-                    <p>Active</p>
-                </li>
-                <li>
-                    <p>Archived</p>
-                </li>
-            </ul>
-            <ul id="summary-table"></ul>
-        </div>
-
-    </main>
-    <footer></footer>
+    </div>
     <script src="./index.js" type="module"></script>
 </body>
 
