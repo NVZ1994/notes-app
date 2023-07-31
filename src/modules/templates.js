@@ -66,8 +66,7 @@ export function archivedNoteTemplate(note) {
             </li>
         </ul>
         <div>
-            <button class="edit-button id-${note.id}">Edit</button>
-            <button class="archive-button id-${note.id}">Remove from archive</button>
+            <button class="dearchivate-button id-${note.id}">Remove from archive</button>
             <button class="delete-button id-${note.id}">Delete</button>
         </div>
     </div>

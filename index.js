@@ -71,7 +71,7 @@ function listenerToNotesEvents() {
         break;
 
       case "delete-button":
-        notesStorage.deleteNoteById(id);
+        notesStorage.deleteNoteById(id, notesStorage.storageKeys.notesStorage);
         break;
     }
   }
@@ -110,22 +110,38 @@ function onSummaryItemClick(event) {
   newArchivedNoteElement.innerHTML = notesHTML;
 
   summaryItem.insertAdjacentElement("afterend", newArchivedNoteElement);
+  listenerToArchivedNotesEvents();
 }
 
 summaryList.addEventListener("click", onSummaryItemClick);
 
-// function listenerToArchivedNotesEvents() {
-//   const summaryItems = document.querySelectorAll("#categoryItem");
-//   summaryItems.forEach((summaryItem) => {
-//     console.log(summaryItem);
-//     summaryItem.addEventListener("click", handleClick);
-//   });
+function listenerToArchivedNotesEvents() {
+  const summaryItems = document.querySelectorAll("#archivedNotesContainer");
+  summaryItems.forEach((summaryItem) => {
+    summaryItem.addEventListener("click", handleClick);
+  });
 
-//   function handleClick(e) {
-//     if (e.target.tagName !== "BUTTON") {
-//       return;
-//     }
-//   }
-// }
+  function handleClick(e) {
+    if (e.target.tagName !== "BUTTON") {
+      return;
+    }
 
-// listenerToArchivedNotesEvents();
+    const buttonType = e.target.classList[0];
+    const id = e.target.classList[1].slice(3);
+
+    switch (buttonType) {
+      case "dearchivate-button":
+        notesStorage.deArchivateNoteById(id);
+        break;
+
+      case "delete-button":
+        notesStorage.deleteNoteById(
+          id,
+          notesStorage.storageKeys.archiveStorage
+        );
+        break;
+    }
+  }
+}
+
+listenerToArchivedNotesEvents();

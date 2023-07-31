@@ -71,7 +71,6 @@ class Modal {
     noteNameInput.value = currentNote.title;
     noteCategorySelect.value = currentNote.category;
     noteContentTextarea.value = currentNote.content;
-    noteDatesInput.value = currentNote.timeStamps;
   }
 
   confirmOfUpdate() {
