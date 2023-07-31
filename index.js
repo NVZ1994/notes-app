@@ -5,6 +5,7 @@ import {
   createSummaryTemplate,
   archivedNoteTemplate,
 } from "./src/modules/templates";
+import { listenerToNotesEvents } from "./src/modules/listeners";
 
 const notesStorage = new NotesStorage(renderHTML);
 const modal = new Modal(notesStorage);
@@ -50,35 +51,8 @@ function renderSummaryInfo() {
   summaryList.innerHTML = markup;
 }
 
-function listenerToNotesEvents() {
-  notesList.addEventListener("click", clickHandle);
-
-  function clickHandle(e) {
-    if (e.target.tagName !== "BUTTON") {
-      return;
-    }
-
-    const buttonType = e.target.classList[0];
-    const id = e.target.classList[1].slice(3);
-
-    switch (buttonType) {
-      case "edit-button":
-        modal.fillNote(id);
-        break;
-
-      case "archive-button":
-        notesStorage.archivateNoteById(id);
-        break;
-
-      case "delete-button":
-        notesStorage.deleteNoteById(id, notesStorage.storageKeys.notesStorage);
-        break;
-    }
-  }
-}
-
 renderHTML();
-listenerToNotesEvents();
+listenerToNotesEvents(modal, notesStorage);
 renderSummaryInfo();
 
 function onSummaryItemClick(event) {
